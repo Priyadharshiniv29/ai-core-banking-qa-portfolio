@@ -1,0 +1,121 @@
+01-requirements/fund-transfer-requirements.md
+# Outward Fund Transfer – Requirement Analysis
+
+## 1. Document Information
+
+| Field | Details |
+|---|---|
+| Project | AI-Assisted Core Banking QA |
+| Module | Savings Account – Outward Fund Transfer |
+| Document Type | Requirement Analysis |
+| Version | 1.0 |
+| Application | Fictional Banking Application |
+| Status | Draft for QA Practice |
+
+## 2. Business Objective
+
+The objective is to enable customers to transfer funds from their savings accounts to accounts held with other banks.
+
+The system must validate account balances, process eligible transactions, handle receiving bank rejections and provide transaction notifications to customers.
+
+## 3. Functional Requirements
+
+### FR01 – Transfer Initiation
+
+The customer must be able to initiate an outward fund transfer by providing the beneficiary account details and transfer amount.
+
+### FR02 – Available Balance Validation
+
+The system must validate whether sufficient available funds exist before accepting a transfer.
+
+### FR03 – Minimum Balance Validation
+
+The system must consider the configured minimum balance requirement when determining the permitted transfer amount.
+
+For this practice scenario, the minimum balance is assumed to be €5,000.
+
+The exact enforcement rule requires business confirmation.
+
+### FR04 – Pending Transaction Handling
+
+The system must account for funds reserved for pending transactions when calculating available balance.
+
+### FR05 – Batch Processing
+
+Eligible outward transfers must be processed through the configured batch processing mechanism.
+
+### FR06 – Receiving Bank Rejection
+
+If the receiving bank rejects a transfer, the system must update the transaction outcome and release or reverse the reserved funds according to the configured posting process.
+
+### FR07 – Balance Reconciliation
+
+The system must maintain correct ledger balance, available balance and reserved amount throughout the transaction lifecycle.
+
+### FR08 – Customer Notification
+
+The customer must receive an appropriate notification when the transfer is successfully completed or rejected.
+
+### FR09 – Duplicate Message Handling
+
+Duplicate rejection messages must not result in duplicate reversals or incorrect balance updates.
+
+### FR10 – Failure Recovery
+
+The system must recover safely from processing failures and maintain transaction consistency.
+
+## 4. Non-Functional Considerations
+
+- Transaction integrity
+- Data consistency
+- Reliable batch processing
+- Audit trail and transaction traceability
+- Secure customer notifications
+- Recovery from system failures
+
+## 5. Business Rules
+
+| Rule ID | Description |
+|---|---|
+| BR01 | Minimum balance assumption: €5,000 |
+| BR02 | Available balance must be considered before transfer acceptance |
+| BR03 | Reserved funds must not be spent twice |
+| BR04 | Rejected transfers must have their reserved funds released or reversed |
+| BR05 | Duplicate rejection messages must be handled safely |
+| BR06 | Customer notifications must reflect the confirmed transaction outcome |
+
+## 6. Open Questions for Business Analyst
+
+1. Is the €5,000 minimum balance mandatory or advisory?
+2. Can a transaction leave the account balance exactly at €5,000?
+3. At what stage are funds reserved or debited?
+4. When does the batch job process outward transfers?
+5. What are the possible rejection codes from the receiving bank?
+6. What information should customer notifications contain?
+7. What happens if notification delivery fails?
+8. How should duplicate rejection messages be handled?
+9. How are transactions recovered after system crashes?
+10. What is the expected transaction status lifecycle?
+
+## 7. QA Scope
+
+The following testing activities are planned:
+
+- Functional testing
+- Positive and negative testing
+- Equivalence partitioning
+- Boundary value analysis
+- Integration testing
+- Batch processing validation
+- Database validation
+- Notification testing
+- Failure recovery testing
+- Regression testing
+
+## 8. Assumptions and Limitations
+
+This document is created for an independent QA portfolio project.
+
+The €5,000 minimum balance is a practice assumption, not a universal banking rule.
+
+Unconfirmed business behaviour will remain an open question until explicitly defined.
